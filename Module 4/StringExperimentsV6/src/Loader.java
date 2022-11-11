@@ -18,7 +18,7 @@ public class Loader {
                 "'Cause this bar is over your head";
 
         text = text.replaceAll("[-.?!')(,:]", "");
-        
+
         for (int i = 0; i < text.length(); i++) {
             text = text.replaceAll(" ", "\n");
         }
