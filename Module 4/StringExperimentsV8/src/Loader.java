@@ -16,7 +16,7 @@ public class Loader {
         StringBuilder stringBuilder = new StringBuilder(phoneNumber);
 
         if (stringBuilder.length() == 10) {
-            if (stringBuilder.indexOf("7") == 0 || stringBuilder.indexOf("8") == 0 || phoneNumber.indexOf("9") == 0) {
+            if (phoneNumber.indexOf("9") == 0) {
                 phoneNumber = String.valueOf(stringBuilder.insert(0, "7"));
             } else {
                 phoneNumber = "Неверный формат номера";
