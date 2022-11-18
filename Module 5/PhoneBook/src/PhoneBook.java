@@ -5,21 +5,26 @@ import java.util.TreeMap;
 
 public class PhoneBook {
     private String subscriber = "";
+    private String subscriberName = "";
+    private String subscriberNumber = "";
     private final TreeMap<String, String> SUBSCRIBERS = new TreeMap<>();
 
     public PhoneBook() {
     }
 
     public boolean isCorrectPhoneNumber() {
-        return subscriber.trim().matches(".*\\d.*") && (subscriber.length() == 11 && subscriber.indexOf("7") == 0);
+        return subscriberNumber.trim().matches(".*\\d.*") && ((subscriberNumber.length() == 11 &&
+                (subscriberNumber.indexOf("7") == 0 || subscriberNumber.indexOf("8") == 0)) ||
+                (subscriberNumber.length() == 10 && subscriberNumber.indexOf("9") == 0)
+        );
     }
 
     public boolean isCorrectName() {
-        return subscriber.trim().matches(".*\\D+.*");
+        return subscriberName.trim().matches(".*^[a-zA-ZР°-СЏРђ-РЇ].*$");
     }
 
     public boolean isCorrectData() {
-        return !(isCorrectName() && isCorrectPhoneNumber());
+        return isCorrectName() || isCorrectPhoneNumber();
     }
 
     public void printMap() {
@@ -28,23 +33,27 @@ public class PhoneBook {
                 System.out.println("\t" + key + " - " + SUBSCRIBERS.get(key));
             }
         } else {
-            System.out.println("Телефонная книга пуста\n");
+            System.out.println("РўРµР»РµС„РѕРЅРЅР°СЏ РєРЅРёРіР° РїСѓСЃС‚Р°");
         }
     }
 
     public boolean isDuplicate(String value) {
-        for (String key : SUBSCRIBERS.keySet()) {
+        for (String ignored : SUBSCRIBERS.keySet()) {
             return SUBSCRIBERS.containsKey(value) || SUBSCRIBERS.containsValue(value);
         }
         return false;
     }
 
+    public boolean isDuplicateNameOrNumber () {
+        return isDuplicate(subscriberName) || isDuplicate(subscriberNumber);
+    }
+
     public void printContactInfo() {
         for (String key : SUBSCRIBERS.keySet()) {
-            if (SUBSCRIBERS.get(key).equals(subscriber) && isCorrectPhoneNumber()) {
+            if (SUBSCRIBERS.get(key).equals(subscriberNumber) && isCorrectPhoneNumber()) {
                 System.out.println("\t" + key + " - " + SUBSCRIBERS.get(key));
                 break;
-            } else if (SUBSCRIBERS.containsKey(subscriber) && isCorrectName()) {
+            } else if (SUBSCRIBERS.containsKey(subscriberName) && isCorrectName()) {
                 System.out.println("\t" + subscriber + " - " + SUBSCRIBERS.get(subscriber));
                 break;
             }
@@ -52,53 +61,88 @@ public class PhoneBook {
     }
 
     public void addName() throws IOException {
-        System.out.print("Введите имя: ");
-        String subscriberName = new BufferedReader(new InputStreamReader(System.in)).readLine();
+        System.out.print("Р’РІРµРґРёС‚Рµ РёРјСЏ: ");
+        subscriberName = new BufferedReader(new InputStreamReader(System.in)).readLine();
 
         if (isDuplicate(subscriberName)) {
-            System.out.println("Такое имя уже существует");
+            System.out.println("РўР°РєРѕРµ РёРјСЏ СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚");
         } else if (subscriberName.trim().matches(".*\\d.*")) {
-            System.out.println("Имя введено некорректно");
+            System.out.println("РРјСЏ РІРІРµРґРµРЅРѕ РЅРµРєРѕСЂСЂРµРєС‚РЅРѕ");
         } else {
-            SUBSCRIBERS.put(subscriberName, subscriber);
+            SUBSCRIBERS.put(subscriberName, subscriberNumber);
         }
     }
 
     public void addPhoneNumber() throws IOException {
-        System.out.print("Введите номер телефона: ");
-        String subscriberPhoneNumber = new BufferedReader(new InputStreamReader(System.in)).readLine();
+        System.out.print("Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°: ");
+        subscriberNumber = new BufferedReader(new InputStreamReader(System.in)).readLine();
+        checkNumberFormat();
 
-        if (isDuplicate(subscriberPhoneNumber)) {
-            System.out.println("Такой номер телефона уже существует");
-        } else if (subscriberPhoneNumber.trim().matches(".*\\D.*") || !(subscriberPhoneNumber.length() == 11 && subscriberPhoneNumber.indexOf("7") == 0)) {
-            System.out.println("Номер телефона введен некорректно. Допустимый формат номера телефона 79991234567\n");
+        if (isDuplicate(subscriberNumber)) {
+            System.out.println("РўР°РєРѕР№ РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР° СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚");
+        } else if (!isCorrectPhoneNumber()) {
+            System.out.println("РќРµРІРµСЂРЅС‹Р№ С„РѕСЂРјР°С‚ РЅРѕРјРµСЂР°");
         } else {
-            SUBSCRIBERS.put(subscriber, subscriberPhoneNumber);
+            SUBSCRIBERS.put(subscriberName, subscriberNumber);
+        }
+    }
+
+    public void subscriberIsNameOrNumber() {
+        if (subscriber.trim().matches(".*\\d+.*")) {
+            subscriberNumber = subscriber;
+            subscriberName = "";
+
+            checkNumberFormat();
+        } else if (subscriber.trim().matches("^[a-zA-ZР°-СЏРђ-РЇ]*$")) {
+            subscriberName = subscriber;
+            subscriberNumber = "";
+        }
+    }
+
+    public void checkNumberFormat() {
+        StringBuilder stringBuilder;
+        subscriberNumber = subscriberNumber.replaceAll("\\D", "");
+
+        for (; ; ) {
+            stringBuilder = new StringBuilder(subscriberNumber);
+            if (isCorrectPhoneNumber()) {
+                if (subscriberNumber.indexOf("7") == 0) {
+                    break;
+                } else if (subscriberNumber.indexOf("8") == 0) {
+                    subscriberNumber = String.valueOf(stringBuilder.replace(0, 1, "7"));
+                    break;
+                } else if (stringBuilder.indexOf("9") == 0) {
+                    subscriberNumber = String.valueOf(stringBuilder.insert(0, "7"));
+                    break;
+                }
+            } else {
+                break;
+            }
         }
     }
 
     public void start() throws IOException {
         while (!subscriber.equals("exit")) {
-            System.out.print("Введите имя или номер: ");
+            System.out.print("Р’РІРµРґРёС‚Рµ РёРјСЏ РёР»Рё РЅРѕРјРµСЂ: ");
             subscriber = new BufferedReader(new InputStreamReader(System.in)).readLine();
 
+            subscriberIsNameOrNumber();
             if (subscriber.equalsIgnoreCase("list")) {
                 printMap();
-            } else if (!isDuplicate(subscriber) && !subscriber.equals("exit")) {
+            } else if (!isDuplicateNameOrNumber() && !subscriber.equals("exit")) {
                 if (isCorrectData()) {
                     if (isCorrectName()) {
                         addPhoneNumber();
                     } else if (isCorrectPhoneNumber()) {
                         addName();
-                    } else {
-                        System.out.println("Номер телефона введен некорректно. Допустимый формат номера телефона 79991234567\n");
                     }
                 } else {
-                    System.out.println("Данные введены некорректно\n");
+                    System.out.println("Р”Р°РЅРЅС‹Рµ РІРІРµРґРµРЅС‹ РЅРµРєРѕСЂСЂРµРєС‚РЅРѕ");
                 }
             } else {
                 printContactInfo();
             }
+            System.out.println();
         }
     }
 }
