@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Locale;
 import java.util.TreeMap;
 
 public class PhoneBook {
@@ -12,22 +13,18 @@ public class PhoneBook {
     public PhoneBook() {
     }
 
-    public boolean isCorrectPhoneNumber() {
+    private boolean isCorrectPhoneNumber() {
         return subscriberNumber.trim().matches(".*\\d.*") && ((subscriberNumber.length() == 11 &&
                 (subscriberNumber.indexOf("7") == 0 || subscriberNumber.indexOf("8") == 0)) ||
                 (subscriberNumber.length() == 10 && subscriberNumber.indexOf("9") == 0)
         );
     }
 
-    public boolean isCorrectName() {
+    private boolean isCorrectName() {
         return subscriberName.trim().matches(".*^[a-zA-Zа-яА-Я].*$");
     }
 
-    public boolean isCorrectData() {
-        return isCorrectName() || isCorrectPhoneNumber();
-    }
-
-    public void printMap() {
+    private void printMap() {
         if (!SUBSCRIBERS.isEmpty()) {
             for (String key : SUBSCRIBERS.keySet()) {
                 System.out.println("\t" + key + " - " + SUBSCRIBERS.get(key));
@@ -37,32 +34,33 @@ public class PhoneBook {
         }
     }
 
-    public boolean isDuplicate(String value) {
+    private boolean isDuplicate(String value) {
         for (String ignored : SUBSCRIBERS.keySet()) {
             return SUBSCRIBERS.containsKey(value) || SUBSCRIBERS.containsValue(value);
         }
         return false;
     }
 
-    public boolean isDuplicateNameOrNumber () {
+    private boolean isDuplicateNameOrNumber () {
         return isDuplicate(subscriberName) || isDuplicate(subscriberNumber);
     }
 
-    public void printContactInfo() {
+    private void printContactInfo() {
         for (String key : SUBSCRIBERS.keySet()) {
             if (SUBSCRIBERS.get(key).equals(subscriberNumber) && isCorrectPhoneNumber()) {
                 System.out.println("\t" + key + " - " + SUBSCRIBERS.get(key));
                 break;
             } else if (SUBSCRIBERS.containsKey(subscriberName) && isCorrectName()) {
-                System.out.println("\t" + subscriber + " - " + SUBSCRIBERS.get(subscriber));
+                System.out.println("\t" + subscriberName + " - " + SUBSCRIBERS.get(subscriberName));
                 break;
             }
         }
     }
 
-    public void addName() throws IOException {
+    private void addName() throws IOException {
         System.out.print("Введите имя: ");
         subscriberName = new BufferedReader(new InputStreamReader(System.in)).readLine();
+        checkFirstLetterOfName();
 
         if (isDuplicate(subscriberName)) {
             System.out.println("Такое имя уже существует");
@@ -73,7 +71,7 @@ public class PhoneBook {
         }
     }
 
-    public void addPhoneNumber() throws IOException {
+    private void addPhoneNumber() throws IOException {
         System.out.print("Введите номер телефона: ");
         subscriberNumber = new BufferedReader(new InputStreamReader(System.in)).readLine();
         checkNumberFormat();
@@ -87,19 +85,27 @@ public class PhoneBook {
         }
     }
 
-    public void subscriberIsNameOrNumber() {
+    private void subscriberIsNameOrNumber() {
         if (subscriber.trim().matches(".*\\d+.*")) {
-            subscriberNumber = subscriber;
             subscriberName = "";
+            subscriberNumber = subscriber;
 
             checkNumberFormat();
         } else if (subscriber.trim().matches("^[a-zA-Zа-яА-Я]*$")) {
-            subscriberName = subscriber;
             subscriberNumber = "";
+            subscriberName = subscriber;
+
+            checkFirstLetterOfName();
         }
     }
 
-    public void checkNumberFormat() {
+    private void checkFirstLetterOfName() {
+        if (Character.isLowerCase(subscriberName.charAt(0))) {
+            subscriberName = subscriberName.replace(subscriberName.charAt(0), Character.toUpperCase(subscriberName.charAt(0)));
+        }
+    }
+
+    private void checkNumberFormat() {
         StringBuilder stringBuilder;
         subscriberNumber = subscriberNumber.replaceAll("\\D", "");
 
@@ -130,12 +136,10 @@ public class PhoneBook {
             if (subscriber.equalsIgnoreCase("list")) {
                 printMap();
             } else if (!isDuplicateNameOrNumber() && !subscriber.equals("exit")) {
-                if (isCorrectData()) {
-                    if (isCorrectName()) {
-                        addPhoneNumber();
-                    } else if (isCorrectPhoneNumber()) {
-                        addName();
-                    }
+                if (isCorrectName()) {
+                    addPhoneNumber();
+                } else if (isCorrectPhoneNumber()) {
+                    addName();
                 } else {
                     System.out.println("Данные введены некорректно");
                 }
