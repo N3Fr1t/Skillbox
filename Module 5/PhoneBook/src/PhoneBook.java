@@ -101,7 +101,7 @@ public class PhoneBook {
 
     private void checkFirstLetterOfName() {
         if (Character.isLowerCase(subscriberName.charAt(0))) {
-            subscriberName = subscriberName.replace(subscriberName.charAt(0), Character.toUpperCase(subscriberName.charAt(0)));
+            subscriberName = subscriberName.substring(0, 1).toUpperCase() + subscriberName.substring(1);
         }
     }
 
