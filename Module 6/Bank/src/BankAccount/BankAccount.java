@@ -29,4 +29,16 @@ public class BankAccount {
     public void checkBalance() {
         System.out.println("На Вашем счете " + new DecimalFormat("#0.00").format(currentMoneyAmount) + "руб.");
     }
+
+    public boolean send(BankAccount receiver, double moneyAmount) {
+        if (currentMoneyAmount >= moneyAmount) {
+            currentMoneyAmount -= moneyAmount;
+
+            receiver.currentMoneyAmount += moneyAmount;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
