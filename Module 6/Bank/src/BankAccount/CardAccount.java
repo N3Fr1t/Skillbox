@@ -2,7 +2,7 @@ package BankAccount;
 
 import java.text.DecimalFormat;
 
-public class CardAccount extends CheckingAccount {
+public class CardAccount extends BankAccount {
     public void withdrawMoney() {
         if ((moneyAmount * 1.01) > currentMoneyAmount) {
             System.out.println("\nНедостаточно средств для снятия наличных" +
