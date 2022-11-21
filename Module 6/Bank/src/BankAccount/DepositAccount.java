@@ -1,6 +1,6 @@
 package BankAccount;
 
-public class DepositAccount extends CheckingAccount {
+public class DepositAccount extends BankAccount {
     private long currentTimeMillis;
     private final long MONTH_MILLIS = (long) (2.592 * Math.pow(10, 9));
 
