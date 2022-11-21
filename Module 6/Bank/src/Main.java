@@ -1,6 +1,5 @@
 import BankAccount.CardAccount;
-import BankAccount.CheckingAccount;
-import BankAccount.DepositAccount;
+import BankAccount.BankAccount;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,17 +7,17 @@ import java.io.InputStreamReader;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
-        CheckingAccount checkingAccount = new CardAccount();
+        BankAccount bankAccount = new CardAccount();
         System.out.println("Список доступных операций:" +
                 "\n\t* внести" +
                 "\n\t* снять" +
                 "\n\t* баланс" +
                 "\n\t* выйти");
 
-        start(checkingAccount);
+        start(bankAccount);
     }
 
-    public static void start(CheckingAccount checkingAccount) throws IOException, InterruptedException {
+    public static void start(BankAccount bankAccount) throws IOException, InterruptedException {
         String operation = "";
         while (!operation.equals("выйти")) {
             System.out.print("Выберите операцию: ");
@@ -26,15 +25,15 @@ public class Main {
 
             if (!operation.equalsIgnoreCase("баланс") && (operation.equalsIgnoreCase("внести") || operation.equalsIgnoreCase("снять"))) {
                 System.out.print("Какую сумму Вы хотите " + operation + "? ");
-                checkingAccount.setMoneyAmount(Double.parseDouble(new BufferedReader(new InputStreamReader(System.in)).readLine().replaceAll("\\D^.", "")));
+                bankAccount.setMoneyAmount(Double.parseDouble(new BufferedReader(new InputStreamReader(System.in)).readLine().replaceAll("\\D^.", "")));
 
                 if (operation.equalsIgnoreCase("внести")) {
-                    checkingAccount.depositMoney();
+                    bankAccount.depositMoney();
                 } else if (operation.equalsIgnoreCase("снять")) {
-                    checkingAccount.withdrawMoney();
+                    bankAccount.withdrawMoney();
                 }
             } else if (operation.equalsIgnoreCase("баланс")) {
-                checkingAccount.checkBalance();
+                bankAccount.checkBalance();
             } else {
                 System.out.println("Введена неверная операция");
                 Thread.sleep(1500);
