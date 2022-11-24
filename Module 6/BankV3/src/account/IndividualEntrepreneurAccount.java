@@ -13,11 +13,11 @@ public class IndividualEntrepreneurAccount extends Client {
     @Override
     public void accountInfo() {
         for (String client : getClientAccount()) {
-            System.out.println("Информация о счете " + client +
-                    "\n\tИндивидуальный предприниматель" +
-                    "\n\tПополнение с комиссией " + (isCheckBalance(getCurrentMoney()) ? "0.5%" : "1%") +
-                    "\n\tСнятие без комиссии" +
-                    "\n\tБаланс: " + getCurrentMoney() + '\n');
+            System.out.println("РРЅС„РѕСЂРјР°С†РёСЏ Рѕ СЃС‡РµС‚Рµ " + client +
+                    "\n\tРРЅРґРёРІРёРґСѓР°Р»СЊРЅС‹Р№ РїСЂРµРґРїСЂРёРЅРёРјР°С‚РµР»СЊ" +
+                    "\n\tРџРѕРїРѕР»РЅРµРЅРёРµ СЃ РєРѕРјРёСЃСЃРёРµР№ " + (isCheckBalance(getCurrentMoney()) ? "0.5%" : "1%") +
+                    "\n\tРЎРЅСЏС‚РёРµ Р±РµР· РєРѕРјРёСЃСЃРёРё" +
+                    "\n\tР‘Р°Р»Р°РЅСЃ: " + getCurrentMoney() + '\n');
         }
     }
 
