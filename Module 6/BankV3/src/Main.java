@@ -17,41 +17,41 @@ public class Main {
         Client individualEntrepreneurAccount2 = new IndividualEntrepreneurAccount();
         Client legalEntityAccount = new LegalEntityAccount();
 
-        System.out.println("Список доступных операций:\n\tВНЕСТИ\n\tСНЯТЬ\n\tПЕРЕВЕСТИ\n\tБАЛАНС\n\tВЫЙТИ");
+        System.out.println("РЎРїРёСЃРѕРє РґРѕСЃС‚СѓРїРЅС‹С… РѕРїРµСЂР°С†РёР№:\n\tР’РќР•РЎРўР\n\tРЎРќРЇРўР¬\n\tРџР•Р Р•Р’Р•РЎРўР\n\tР‘РђР›РђРќРЎ\n\tР’Р«Р™РўР");
 
-        while (!operation.equals("выйти")) {
-            System.out.print("\nВыберите операцию: ");
+        while (!operation.equals("РІС‹Р№С‚Рё")) {
+            System.out.print("\nР’С‹Р±РµСЂРёС‚Рµ РѕРїРµСЂР°С†РёСЋ: ");
             operation = reader.readLine().toLowerCase();
 
             operationCheck(operation);
 
             switch (operation) {
-                case "внести":
+                case "РІРЅРµСЃС‚Рё":
                     deposit(reader, individualAccount, individualEntrepreneurAccount, individualEntrepreneurAccount2, legalEntityAccount);
                     break;
-                case "снять":
+                case "СЃРЅСЏС‚СЊ":
                     withdraw(reader, individualAccount, individualEntrepreneurAccount, individualEntrepreneurAccount2, legalEntityAccount);
                     break;
-                case "перевести":
+                case "РїРµСЂРµРІРµСЃС‚Рё":
                     send(reader, individualAccount, individualEntrepreneurAccount, individualEntrepreneurAccount2, legalEntityAccount);
                     break;
-                case "баланс":
+                case "Р±Р°Р»Р°РЅСЃ":
                     balance(individualAccount, individualEntrepreneurAccount, individualEntrepreneurAccount2, legalEntityAccount);
                     break;
-                case "инфо":
+                case "РёРЅС„Рѕ":
                     info(individualAccount, individualEntrepreneurAccount, individualEntrepreneurAccount2, legalEntityAccount);
                     break;
-                case "выйти":
+                case "РІС‹Р№С‚Рё":
                     break;
                 default:
-                    System.out.println("Введена неверная операция");
+                    System.out.println("Р’РІРµРґРµРЅР° РЅРµРІРµСЂРЅР°СЏ РѕРїРµСЂР°С†РёСЏ");
             }
         }
     }
 
     private static void operationCheck(String operation) {
-        if (!(operation.equals("баланс") ||  operation.equals("инфо") || operation.equals("выйти")) && (operation.equals("внести") || operation.equals("снять") || operation.equals("перевести"))) {
-            System.out.print("Какую сумму Вы хотите " + operation + "? ");
+        if (!(operation.equals("Р±Р°Р»Р°РЅСЃ") ||  operation.equals("РёРЅС„Рѕ") || operation.equals("РІС‹Р№С‚Рё")) && (operation.equals("РІРЅРµСЃС‚Рё") || operation.equals("СЃРЅСЏС‚СЊ") || operation.equals("РїРµСЂРµРІРµСЃС‚Рё"))) {
+            System.out.print("РљР°РєСѓСЋ СЃСѓРјРјСѓ Р’С‹ С…РѕС‚РёС‚Рµ " + operation + "? ");
         }
     }
 
