@@ -34,14 +34,14 @@ public abstract class Client {
     }
 
     void notMoneyEnough() {
-        System.out.println("На балансе Вашего счета недостаточно средств для совершения данной операции");
+        System.out.println("РќР° Р±Р°Р»Р°РЅСЃРµ Р’Р°С€РµРіРѕ СЃС‡РµС‚Р° РЅРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ СЃСЂРµРґСЃС‚РІ РґР»СЏ СЃРѕРІРµСЂС€РµРЅРёСЏ РґР°РЅРЅРѕР№ РѕРїРµСЂР°С†РёРё");
     }
 
     public void send(Client receiver, double moneyAmount) {
         if (currentMoney >= moneyAmount) {
             currentMoney -= moneyAmount;
             receiver.setCurrentMoney(receiver.getCurrentMoney() + moneyAmount);
-            System.out.println("Средства успешно переведены на лицевой счет " + receiver.getClientAccount());
+            System.out.println("РЎСЂРµРґСЃС‚РІР° СѓСЃРїРµС€РЅРѕ РїРµСЂРµРІРµРґРµРЅС‹ РЅР° Р»РёС†РµРІРѕР№ СЃС‡РµС‚ " + receiver.getClientAccount());
         } else {
             notMoneyEnough();
         }
@@ -56,7 +56,7 @@ public abstract class Client {
     }
 
     public void checkMoney() {
-        System.out.println("На балансе Вашего счета " + getCurrentMoney() + "руб.");
+        System.out.println("РќР° Р±Р°Р»Р°РЅСЃРµ Р’Р°С€РµРіРѕ СЃС‡РµС‚Р° " + getCurrentMoney() + "СЂСѓР±.");
     }
 
     public abstract void accountInfo();
