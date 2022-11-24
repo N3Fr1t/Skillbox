@@ -6,8 +6,8 @@ public class LegalEntityAccount extends Client {
         if (getCurrentMoney() >= moneyAmount * 1.01) {
             setCurrentMoney(getCurrentMoney() - moneyAmount * 1.01);
         } else {
-            System.out.println("На балансе Вашего счета недостаточно средств для совершения данной операции");
-            System.out.println("Сумма с учетом комиссии, которую Вы хотите снять составляет " + moneyAmount * 1.01);
+            System.out.println("РќР° Р±Р°Р»Р°РЅСЃРµ Р’Р°С€РµРіРѕ СЃС‡РµС‚Р° РЅРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ СЃСЂРµРґСЃС‚РІ РґР»СЏ СЃРѕРІРµСЂС€РµРЅРёСЏ РґР°РЅРЅРѕР№ РѕРїРµСЂР°С†РёРё");
+            System.out.println("РЎСѓРјРјР° СЃ СѓС‡РµС‚РѕРј РєРѕРјРёСЃСЃРёРё, РєРѕС‚РѕСЂСѓСЋ Р’С‹ С…РѕС‚РёС‚Рµ СЃРЅСЏС‚СЊ СЃРѕСЃС‚Р°РІР»СЏРµС‚ " + moneyAmount * 1.01);
             checkMoney();
         }
     }
@@ -15,11 +15,11 @@ public class LegalEntityAccount extends Client {
     @Override
     public void accountInfo() {
         for (String client : getClientAccount()) {
-            System.out.println("Информация о счете " + client +
-                    "\n\tЮридическое лицо" +
-                    "\n\tПополнение без комиссии" +
-                    "\n\tСнятие с комиссией 1%" +
-                    "\n\tБаланс: " + getCurrentMoney() + '\n');
+            System.out.println("РРЅС„РѕСЂРјР°С†РёСЏ Рѕ СЃС‡РµС‚Рµ " + client +
+                    "\n\tР®СЂРёРґРёС‡РµСЃРєРѕРµ Р»РёС†Рѕ" +
+                    "\n\tРџРѕРїРѕР»РЅРµРЅРёРµ Р±РµР· РєРѕРјРёСЃСЃРёРё" +
+                    "\n\tРЎРЅСЏС‚РёРµ СЃ РєРѕРјРёСЃСЃРёРµР№ 1%" +
+                    "\n\tР‘Р°Р»Р°РЅСЃ: " + getCurrentMoney() + '\n');
         }
     }
 }
