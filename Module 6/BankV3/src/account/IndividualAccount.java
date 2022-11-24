@@ -4,11 +4,11 @@ public class IndividualAccount extends Client {
     @Override
     public void accountInfo() {
         for (String client : getClientAccount()) {
-            System.out.println("Информация о счете " + client +
-                    "\n\tФизическое лицо" +
-                    "\n\tПополнение без комиссии" +
-                    "\n\tСнятие без комиссии" +
-                    "\n\tБаланс: " + getCurrentMoney() + '\n');
+            System.out.println("РРЅС„РѕСЂРјР°С†РёСЏ Рѕ СЃС‡РµС‚Рµ " + client +
+                    "\n\tР¤РёР·РёС‡РµСЃРєРѕРµ Р»РёС†Рѕ" +
+                    "\n\tРџРѕРїРѕР»РЅРµРЅРёРµ Р±РµР· РєРѕРјРёСЃСЃРёРё" +
+                    "\n\tРЎРЅСЏС‚РёРµ Р±РµР· РєРѕРјРёСЃСЃРёРё" +
+                    "\n\tР‘Р°Р»Р°РЅСЃ: " + getCurrentMoney() + '\n');
         }
     }
 }
