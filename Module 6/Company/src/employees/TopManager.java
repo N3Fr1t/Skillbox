@@ -5,6 +5,6 @@ public class TopManager implements Employee {
 
     @Override
     public int getMonthSalary() {
-        return (FIXED_SALARY + (Company.getIncome() > 1000000 ? (int) (FIXED_SALARY * 1.5) : 0));
+        return (FIXED_SALARY + (Company.getIncome() > 10000000 ? (int) (FIXED_SALARY * 1.5) : 0));
     }
 }
