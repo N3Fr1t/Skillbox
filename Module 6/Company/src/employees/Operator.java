@@ -1,10 +1,14 @@
 package employees;
 
 public class Operator implements Employee {
-    private static final int FIXED_SALARY = 40000;
-
     @Override
     public int getMonthSalary() {
-        return FIXED_SALARY;
+        return 40000;
+    }
+
+    @Override
+    public String toString() {
+        return "ТИП: Оператор" +
+                "\n\tЗ/П " + getMonthSalary() + " руб.";
     }
 }
