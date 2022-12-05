@@ -6,10 +6,14 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Company {
-    public List<Employee> employees = new ArrayList<>();
+    private static int income;
+    private final List<Employee> employees = new ArrayList<>();
+    public Company() {
+        income = (int) Math.round(5000000 + Math.random() * 10000000);
+    }
 
     public void hire(Employee employee) {
-        this.employees.add(employee);
+        employees.add(employee);
     }
 
     public void hireAll(Collection<Employee> employees) {
@@ -21,11 +25,25 @@ public class Company {
     }
 
     public static int getIncome() {
-        return (int) Math.round(5000000 + Math.random() * 10000000);
+        return income;
     }
 
-    public int countEmployees() {
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public int getEmployeesCount() {
         return employees.size();
+    }
+
+    private List<Employee> sortedEmployees(int count, Comparator<Employee> comparator) {
+        employees.sort(comparator);
+
+        List<Employee> copyEmployee = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            copyEmployee.add(employees.get(i));
+        }
+        return copyEmployee;
     }
 
     public List<Employee> getTopSalaryStaff(int count) {
@@ -36,17 +54,10 @@ public class Company {
         return sortedEmployees(count, Comparator.comparingInt(Employee::getMonthSalary));
     }
 
-    private List<Employee> sortedEmployees(int count, Comparator<Employee> comparator) {
-        employees.sort(comparator);
-        List<Employee> employeeCopy = new ArrayList<>();
-
-        for (int i = 0; i < count; i++) {
-            employeeCopy.add(employees.get(i));
-        }
-        return employeeCopy;
-    }
-
-    public List<Employee> getEmployees() {
-        return employees;
-    }
+//    public void printEmployees() {
+//        for (Employee employee : employees) {
+//            System.out.println(employee);
+//        }
+//        System.out.println("============================");
+//    }
 }
